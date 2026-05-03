@@ -9,22 +9,21 @@ class MenuController extends Controller
 {
     public function index(Request $request)
     {
+        // Mulai query
         $query = Menu::query();
 
-        // Logic Cari Nama
+        // Filter berdasarkan Kategori jika ada di URL
+        if ($request->has('category') && $request->category != null) {
+            $query->where('category', $request->category);
+        }
+
+        // Filter berdasarkan Search jika ada
         if ($request->has('search')) {
             $query->where('name', 'like', '%' . $request->search . '%');
         }
 
-        // Logic Filter Kategori
-        if ($request->has('category') && $request->category != '') {
-            $query->where('category', $request->category);
-        }
-
-        // Ambil data menu
         $menus = $query->get();
 
-        // Lempar ke view welcome
         return view('welcome', compact('menus'));
     }
 }
