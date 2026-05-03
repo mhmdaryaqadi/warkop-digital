@@ -2,17 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Menu; // Jangan lupa baris ini untuk panggil model Menu
+use App\Models\Menu;
 use Illuminate\Http\Request;
 
 class MenuController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        // Ambil semua data dari tabel menus
-        $menus = Menu::all(); 
-        
-        // Kirim data ke file tampilan bernama 'welcome'
+        $query = Menu::query();
+
+        // Logic Cari Nama
+        if ($request->has('search')) {
+            $query->where('name', 'like', '%' . $request->search . '%');
+        }
+
+        // Logic Filter Kategori
+        if ($request->has('category') && $request->category != '') {
+            $query->where('category', $request->category);
+        }
+
+        // Ambil data menu
+        $menus = $query->get();
+
+        // Lempar ke view welcome
         return view('welcome', compact('menus'));
     }
 }
