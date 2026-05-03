@@ -3,134 +3,130 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Warkop Digital - Ar</title>
-    <!-- Ini bagian paling penting: Memanggil Vite untuk Tailwind -->
+    <title>Warkop Digital - Comic Edition</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="bg-slate-50 font-sans">
+<body class="bg-[#FFDE00] font-sans text-black antialiased pb-24">
 
-    <!-- Navbar Minimalis -->
-    <nav class="bg-white/80 backdrop-blur-md shadow-sm sticky top-0 z-50">
-        <div class="max-w-6xl mx-auto px-6 py-4 flex justify-between items-center">
-            <h1 class="text-2xl font-black text-orange-600 tracking-tight">
-                ☕ WARKOP<span class="text-slate-800">DIGITAL</span>
-            </h1>
-            <div class="hidden md:flex space-x-8 text-slate-600 font-semibold">
-                <a href="#" class="hover:text-orange-500 transition">Menu</a>
-                <a href="#" class="hover:text-orange-500 transition">Promo</a>
-                <a href="#" class="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition">Pesanan Saya</a>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <header class="relative bg-slate-900 py-20 text-center overflow-hidden">
-        <div class="relative z-10 max-w-3xl mx-auto px-6">
-            <h2 class="text-5xl font-extrabold text-white mb-4 leading-tight">
-                Ngopi di Rawageni, <br> <span class="text-orange-500">Pesan dari Hati.</span>
-            </h2>
-            <p class="text-slate-400 text-lg mb-8">Nikmati sensasi warkop legendaris dengan kemudahan digital. Tanpa antri, tinggal klik, pesanan sampai di meja.</p>
-        </div>
-        <!-- Hiasan Background -->
-        <div class="absolute top-0 left-0 w-64 h-64 bg-orange-500/10 rounded-full -translate-x-1/2 -translate-y-1/2 blur-3xl"></div>
-    </header>
-
-    <!-- Daftar Menu -->
-    <main class="max-w-6xl mx-auto px-6 py-16">
-        <div class="flex justify-between items-end mb-6">
-            <div>
-                <h3 class="text-3xl font-bold text-slate-800">Menu Andalan</h3>
-                <div class="h-1.5 w-20 bg-orange-500 mt-2 rounded-full"></div>
-            </div>
-        </div>
+    <!-- CONTAINER UTAMA -->
+    <div class="max-w-2xl mx-auto bg-white min-h-screen border-x-4 border-black relative shadow-[20px_0px_0px_0px_rgba(0,0,0,1)]">
         
-        <!-- Bar Pencarian & Filter -->
-        <div class="mb-10 flex flex-col md:flex-row gap-4 items-center justify-between">
-            <form action="/" method="GET" class="w-full md:w-1/2 flex gap-2">
-                <input type="text" name="search" value="{{ request('search') }}" 
-                    placeholder="Cari kopi favoritmu..." 
-                    class="w-full px-5 py-3 rounded-2xl border border-slate-200 outline-none focus:ring-2 focus:ring-orange-500 shadow-sm transition">
-                <button type="submit" class="bg-orange-600 text-white px-6 py-3 rounded-2xl font-bold hover:bg-orange-700 transition">
-                    Cari
-                </button>
-            </form>
-
-            <div class="flex gap-2 overflow-x-auto pb-2 w-full md:w-auto">
-                <a href="/" class="px-5 py-2 rounded-full border {{ request('category') == '' ? 'bg-slate-800 text-white border-slate-800' : 'bg-white text-slate-600 border-slate-200' }} font-bold text-sm whitespace-nowrap transition">
-                    Semua
-                </a>
-                @foreach(['Minuman', 'Makanan', 'Snack'] as $cat)
-                    <a href="/?category={{ $cat }}" 
-                    class="px-5 py-2 rounded-full border {{ request('category') == $cat ? 'bg-slate-800 text-white border-slate-800' : 'bg-white text-slate-600 border-slate-200' }} font-bold text-sm whitespace-nowrap transition">
-                        {{ $cat }}
-                    </a>
-                @endforeach
-            </div>
-        </div>
-
-        <!-- Grid Kartu Menu -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-            @foreach($menus as $item)
-            <div class="group bg-white rounded-3xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
-                <!-- Area Gambar (Placeholder) -->
-                <div class="h-56 bg-slate-200 relative flex items-center justify-center overflow-hidden">
-                    @if($item->image)
-                        <!-- Jika ada foto, tampilkan dari storage -->
-                        <img src="{{ asset('storage/' . $item->image) }}" 
-                            alt="{{ $item->name }}" 
-                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                    @else
-                        <!-- Jika tidak ada foto, tampilkan teks placeholder -->
-                        <span class="text-slate-400 font-bold italic group-hover:scale-110 transition-transform">
-                            📸 Foto {{ $item->name }}
-                        </span>
-                    @endif
-
-                    <div class="absolute top-4 left-4">
-                        <span class="bg-white/90 backdrop-blur-md text-slate-800 text-xs font-bold px-3 py-1.5 rounded-full shadow-sm">
-                            {{ $item->category }}
-                        </span>
-                    </div>
+        <!-- HEADER & SEARCH -->
+        <header class="p-6 border-b-4 border-black bg-white sticky top-0 z-40">
+            <div class="flex justify-between items-center mb-6">
+                <div>
+                    <h1 class="text-4xl font-black italic uppercase tracking-tighter">
+                        Warkop<span class="text-red-600">.</span>Digital
+                    </h1>
+                    <p class="text-[10px] font-bold tracking-widest uppercase">Rawageni Tech Hub // Depok</p>
                 </div>
-                
-                <!-- Detail Menu -->
-                <div class="p-8">
-                    <div class="flex justify-between items-center mb-3">
-                        <h4 class="text-xl font-bold text-slate-800 group-hover:text-orange-600 transition-colors">
-                            {{ $item->name }}
-                        </h4>
+                <!-- Status Open -->
+                <div class="bg-lime-400 border-2 border-black px-2 py-1 text-[10px] font-black uppercase shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]">
+                    OPEN
+                </div>
+            </div>
+
+            <div class="flex flex-col gap-4">
+                <!-- SEARCH BAR -->
+                <form action="/" method="GET" class="relative">
+                    <input type="text" name="search" value="{{ request('search') }}" placeholder="CARI MENU..." 
+                           class="w-full bg-white border-4 border-black p-3 font-black placeholder-gray-400 focus:outline-none focus:bg-cyan-300 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                </form>
+
+                <!-- KATEGORI (HORIZONTAL SCROLL) -->
+                <div class="flex gap-3 overflow-x-auto pb-2 scrollbar-hide pt-2">
+                    <!-- Tombol Semua -->
+                    <a href="{{ request()->fullUrlWithQuery(['category' => null]) }}" 
+                    class="{{ !request('category') ? 'bg-black text-white' : 'bg-white text-black' }} border-2 border-black px-4 py-1 text-xs font-black uppercase shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] whitespace-nowrap transition-all">
+                    SEMUA
+                    </a>
+
+                    <!-- Tombol Makanan -->
+                    <a href="{{ request()->fullUrlWithQuery(['category' => 'makanan']) }}" 
+                    class="{{ request('category') == 'makanan' ? 'bg-black text-white' : 'bg-white text-black' }} border-2 border-black px-4 py-1 text-xs font-black uppercase shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] whitespace-nowrap hover:bg-cyan-300 transition-all">
+                    MAKANAN
+                    </a>
+
+                    <!-- Tombol Minuman -->
+                    <a href="{{ request()->fullUrlWithQuery(['category' => 'minuman']) }}" 
+                    class="{{ request('category') == 'minuman' ? 'bg-black text-white' : 'bg-white text-black' }} border-2 border-black px-4 py-1 text-xs font-black uppercase shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] whitespace-nowrap hover:bg-cyan-300 transition-all">
+                    MINUMAN
+                    </a>
+
+                    <!-- Tombol Cemilan -->
+                    <a href="{{ request()->fullUrlWithQuery(['category' => 'cemilan']) }}" 
+                    class="{{ request('category') == 'cemilan' ? 'bg-black text-white' : 'bg-white text-black' }} border-2 border-black px-4 py-1 text-xs font-black uppercase shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] whitespace-nowrap hover:bg-cyan-300 transition-all">
+                    CEMILAN
+                    </a>
+                </div>
+            </div>
+        </header>
+
+        <!-- DAFTAR MENU -->
+        <main class="p-6">
+            @if(session('success'))
+                <div class="mb-6 bg-lime-300 border-4 border-black p-3 font-black text-sm shadow-[4px_4px_0px_0px_rgba(0,0,0,1)]">
+                    ✅ {{ session('success') }}
+                </div>
+            @endif
+
+            <div class="flex flex-col gap-8">
+                @foreach($menus as $item)
+                <div class="flex justify-between items-center gap-4 group">
+                    <!-- INFO KIRI -->
+                    <div class="flex-1">
+                        <span class="text-[10px] font-black uppercase text-red-600 tracking-tighter">{{ $item->category }}</span>
+                        <h3 class="text-xl font-black uppercase italic leading-none mb-1">{{ $item->name }}</h3>
+                        <p class="text-xs font-bold text-gray-600 line-clamp-2 mb-2">{{ $item->description }}</p>
+                        <p class="text-lg font-black tracking-tight italic">Rp{{ number_format($item->price, 0, ',', '.') }}</p>
                     </div>
-                    <p class="text-slate-500 text-sm leading-relaxed mb-6 line-clamp-2">
-                        {{ $item->description }}
-                    </p>
-                    
-                    <div class="flex items-center justify-between mt-auto">
-                        <div>
-                            <p class="text-xs text-slate-400 uppercase font-bold tracking-widest">Harga</p>
-                            <p class="text-2xl font-black text-slate-900">
-                                <span class="text-sm font-bold">Rp</span>{{ number_format($item->price, 0, ',', '.') }}
-                            </p>
-                        </div>
-                        <form action="{{ route('cart.add', $item->id) }}" method="POST">
+
+                    <!-- GAMBAR KANAN -->
+                    <div class="relative w-24 h-24 flex-shrink-0 border-4 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] bg-gray-200 overflow-hidden">
+                        @if($item->image)
+                            <img src="{{ asset('storage/' . $item->image) }}" class="w-full h-full object-cover">
+                        @else
+                            <div class="w-full h-full flex items-center justify-center font-black opacity-20 italic">NO PIC</div>
+                        @endif
+
+                        <!-- Tombol Tambah (+) -->
+                        <form action="{{ route('cart.add', $item->id) }}" method="POST" class="absolute bottom-0 right-0">
                             @csrf
-                            <button class="bg-slate-900 text-white p-4 rounded-2xl hover:bg-orange-600 transition-all shadow-lg active:scale-95">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
-                                </svg>
+                            <button type="submit" class="bg-red-500 text-white w-8 h-8 flex items-center justify-center border-t-4 border-l-4 border-black hover:bg-black transition-colors">
+                                <span class="font-black text-xl">+</span>
                             </button>
                         </form>
                     </div>
                 </div>
+                @endforeach
             </div>
-            @endforeach
-        </div>
-    </main>
+        </main>
 
-    <footer class="bg-white border-t border-slate-100 py-12 text-center">
-        <p class="text-slate-400 text-sm font-medium italic">
-            Built with Passion by <span class="text-slate-800 font-bold">Arya Alqadi</span> &bull; 2026
-        </p>
-    </footer>
+        <!-- FLOATING CART (STICKY BOTTOM) -->
+        @if(session('cart') && count(session('cart')) > 0)
+            @php 
+                $total_qty = 0;
+                $total_price = 0;
+                foreach(session('cart') as $details) {
+                    $total_qty += $details['quantity'];
+                    $total_price += $details['price'] * $details['quantity'];
+                }
+            @endphp
+            <div class="fixed bottom-6 left-1/2 -translate-x-1/2 w-full max-w-lg px-6 z-50">
+                <a href="{{ route('cart.index') }}" class="flex items-center justify-between bg-cyan-400 border-4 border-black p-4 shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] transition-all">
+                    <div class="flex flex-col">
+                        <span class="font-black text-xs uppercase">{{ $total_qty }} PESANAN</span>
+                        <span class="font-bold text-[10px] tracking-widest uppercase opacity-70">Warkop Digital</span>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <span class="text-xl font-black italic">Rp{{ number_format($total_price, 0, ',', '.') }}</span>
+                        <span class="text-2xl font-black">➔</span>
+                    </div>
+                </a>
+            </div>
+        @endif
+
+    </div>
 
 </body>
 </html>

@@ -7,23 +7,8 @@ use App\Http\Controllers\AdminMenuController;
 use App\Models\Menu;
 use Illuminate\Http\Request;
 
-Route::get('/', function (Request $request) {
-    $query = Menu::query();
-
-    // Logic Cari Nama
-    if ($request->has('search')) {
-        $query->where('name', 'like', '%' . $request->search . '%');
-    }
-
-    // Logic Filter Kategori
-    if ($request->has('category') && $request->category != '') {
-        $query->where('category', $request->category);
-    }
-
-    $menus = $query->get();
-    
-    return view('welcome', compact('menus'));
-});
+// Route untuk halaman depan sekarang lewat Controller
+Route::get('/', [MenuController::class, 'index'])->name('home');
 Route::post('/add-to-cart/{id}', [CartController::class, 'add'])->name('cart.add');
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::delete('/remove-from-cart', [CartController::class, 'remove'])->name('cart.remove');
